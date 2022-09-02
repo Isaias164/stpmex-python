@@ -31,6 +31,12 @@ from .base import Resource
 STP_BANK_CODE = 90646
 
 
+class ClabeNoValidation(Clabe):
+
+    def __get_validators__(self) -> None:
+        return None
+
+
 @dataclass
 class Orden(Resource):
     """
@@ -50,7 +56,7 @@ class Orden(Resource):
     nombreBeneficiario: truncated_str(39)
     institucionContraparte: digits(5, 5)
 
-    cuentaOrdenante: Clabe
+    cuentaOrdenante: ClabeNoValidation
     nombreOrdenante: Optional[truncated_str(39)] = None
     institucionOperante: digits(5, 5) = STP_BANK_CODE
 
