@@ -49,10 +49,10 @@ class StpStr(AsciiStr):
 
 
 class BeneficiarioClabe(Clabe):
-    @classmethod
-    def __get_validators__(cls) -> 'CallableGenerator':
-        yield from Clabe.__get_validators__()
-        yield cls.validate_blocked_institution
+    # @classmethod
+    # def __get_validators__(cls) -> 'CallableGenerator':
+    #     yield from Clabe.__get_validators__()
+    #     yield cls.validate_blocked_institution
 
     @classmethod
     def validate_blocked_institution(cls, clabe: Clabe) -> Clabe:
