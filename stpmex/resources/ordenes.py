@@ -101,8 +101,6 @@ class Orden(Resource):
 
     @validator('institucionContraparte')
     def _validate_institucion(cls, v: str) -> str:
-        if v not in clabe.BANKS.values():
-            raise ValueError(f'{v} no se corresponde a un banco')
         return v
 
     @classmethod
