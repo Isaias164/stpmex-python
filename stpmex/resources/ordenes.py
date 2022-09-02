@@ -31,12 +31,6 @@ from .base import Resource
 STP_BANK_CODE = 90646
 
 
-class ClabeNoValidation(Clabe):
-
-    def __get_validators__(self) -> None:
-        return None
-
-
 @dataclass
 class Orden(Resource):
     """
@@ -56,7 +50,7 @@ class Orden(Resource):
     nombreBeneficiario: truncated_str(39)
     institucionContraparte: digits(5, 5)
 
-    cuentaOrdenante: ClabeNoValidation
+    cuentaOrdenante: Clabe
     nombreOrdenante: Optional[truncated_str(39)] = None
     institucionOperante: digits(5, 5) = STP_BANK_CODE
 
@@ -107,6 +101,8 @@ class Orden(Resource):
 
     @validator('institucionContraparte')
     def _validate_institucion(cls, v: str) -> str:
+        if v not in clabe.BANKS.values():
+            raise ValueError(f'{v} no se corresponde a un banco')
         return v
 
     @classmethod
